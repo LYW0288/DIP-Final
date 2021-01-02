@@ -101,31 +101,6 @@ function[S,max_area,r1,r2,c1,c2]  = find_largest_convex_hull(mask,image)
 	max_area = prod(size(S,1),size(S,2));
 end
 %%
-function[index]=select_image(k,options,I)
-  hfig=figure;
-  for i=1:k
-    subplot(2,2,i);
-    im = imread(['dataset/image/',I(options(i)).name]);
-    h{i}.h = imshow(im);
-    set(h{i}.h, 'buttondownfcn', {@loads_of_stuff,i});
-  end
-
-  function loads_of_stuff(src,eventdata,x)
-    if get(src,'UserData')
-        set(src,'UserData',0)
-        title('');
-    else
-        set(src,'UserData',1)
-        title('Selected');
-        %[filename,user_canc]=imsave(src);
-        %image=imread(filename);
-    end
-    fprintf('%s:\n',num2str(x));
-    index = x;
-  end
-uiwait(hfig);
-end
-%%
 function [C, H, W, M,r1,r2,c1,c2] = FindLargestRectangles(I, image, crit, minSize)
     if (nargin<3)
       crit = [1 1 0];
