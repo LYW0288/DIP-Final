@@ -6,11 +6,11 @@
 .　　產出物為mat_file/fcn_data_212.mat<br> 
  
     %%compute_max_regions.m 
-.　　利用mask找尋最大可以用的天空區域(長方形)<br> 
+.　　利用mask找尋最大可以用的天空區域(長方形)，然後全部存在一個檔案方便提取使用<br> 
 .　　產出物為mat_files/max_rects.mat<br> 
  
     %%compute_descriptors.m
-.　　`5.Sky Search`中，將FCN後的產物F進行一個average pooling process，變成直方圖H<br>
+.　　`5.Sky Search`中，將FCN後的產物F進行一個average pooling process，變成直方圖H，然後全部存在一個檔案方便提取使用<br>
 .　　↑將圖像分成3x3的網格，提取網格s的直方圖Hs，連結後得到H<br> 
 .　　產出物為mat_files/descriptor_212.mat<br> 
  
@@ -29,6 +29,21 @@ replace_sky.m
 %input<br> 
 ----- 
 `file_num`: 修改數字即可(ex:1)<br>
-.　　在此function中，會先輸入max_rects和descriptor_212兩個檔案<br>
-.　　輸入目標圖像和目標圖像的mask，做了一些之前提過的處理(ex: 機率化、直方化、取得最大天空長方形等)<br>
+.　　在此function中，會先輸入max_rects和descriptor_212兩個檔案(就不用再重複運算)<br>
 .　　他會藉由max_rects幫你算放大縮小率比較小的4張圖給你選<br>
+
+replace_sky_v2.m
+====== 
+    function[rough_mask,I_rep,I_ref,ref_region,norm_F,ref_im_name] = replace_sky(file1, file2)
+
+%input<br> 
+----- 
+`file_1`: 目標圖片，修改數字即可(ex:1)<br>
+`file_2`: 參考圖片，修改數字即可(ex:2)<br>
+.　　由於max_rects和descriptor_212過大，不方便傳輸，因此本版本直接在fuction中運算，不需要額外檔案<br>
+.　　為了方便操作，直接輸入目標圖片和參考圖片即可<br>
+*使用的檔案路徑為<br>
+
+        'dataset/image/*.png'
+        'dataset/mask/*.png'
+        'fcn_dat/*.mat'
