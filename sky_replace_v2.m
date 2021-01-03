@@ -28,7 +28,7 @@ function[rough_mask,I_rep,I_ref,ref_region,norm_F,ref_im_name] = replace_sky(fil
     target_sky_mask = imread(['dataset/mask/',P(file1).name]);
     target_sky_mask = im2bw(target_sky_mask);
     target = imresize(A, [500 500]);
-    load (['fcn_dat/', L(1).name]);
+    load (['fcn_dat/', L(file1).name]);
     rough_mask = predict_label;
     F = predict_value;
     for i=1:size(target,1)
