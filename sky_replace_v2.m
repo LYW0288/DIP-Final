@@ -1,7 +1,7 @@
 
 
-file1 = 4;
-file2 = 5;
+file1 = 1;
+file2 = 2;
 [input_region,I_replaced,reference_Im,reference_region,norm_F,ref_im_name] = replace_sky(file1, file2);
 
 
@@ -44,10 +44,10 @@ function[rough_mask,I_rep,I_ref,ref_region,norm_F,ref_im_name] = replace_sky(fil
     %w = waitbar(0,'Finding candidate skies')
     [~,~,~,max_target_region,tr1,tr2,tc1,tc2] = FindLargestRectangles((target_sky_mask),A);
     source = imread(['dataset/image/',I(file2).name]);
-    source_target = imread(['dataset/mask/',P(file2).name]);
+    source_sky_mask = im2bw(imread(['dataset/mask/',P(file2).name]));
     ref_im_name = I(file2).name;
     %%%%%%%%% replace sky using the chosen image %%%%%%%%%%%
-    [S,~,~,~,~,~,~,~] = FindLargestRectangles((source_target),source);
+    [S,~,~,max_source_region,sr1,sr2,sc1,sc2] = FindLargestRectangles((source_sky_mask),source);
     [T,tmax_area,tr1,tr2,tc1,tc2]  = find_largest_convex_hull(target_sky_mask,A);
     source_sky = imresize(S,[size(T,1) size(T,2)]);
     I_rep = A;
