@@ -34,7 +34,7 @@ function[rough_mask,I_rep,I_ref,ref_region,norm_F,ref_im_name] = replace_sky(fil
     no_of_images = size(descriptor,2);
     target = imresize(A, [500 500]);
     %[~,rough_mask,res] = scene_parse(target);
-    load (['fcn_dat/', L(1).name]);
+    load (['fcn_dat/', L(file1).name]);
     rough_mask = predict_label;
     F = predict_value;
     for i=1:size(target,1)
